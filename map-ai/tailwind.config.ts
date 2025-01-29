@@ -1,14 +1,15 @@
-import type { Config } from 'tailwindcss';
-import { createGlobPatternsForDependencies } from '@nx/angular/tailwind';
-import { join } from 'node:path';
+const { createGlobPatternsForDependencies } = require('@nx/angular/tailwind');
+const { join } = require('path');
 
-export default {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  presets: [require('@spartan-ng/ui-core/hlm-tailwind-preset')],
   content: [
-    join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html,md,analog,ag}'),
+    join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
     extend: {},
   },
   plugins: [],
-} satisfies Config;
+};
