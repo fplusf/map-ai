@@ -1,0 +1,57 @@
+{
+  "name": "map-ai",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@analogjs/platform:vite",
+      "defaultConfiguration": "production",
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "sourcemap": false,
+          "mode": "production"
+        }
+      },
+      "outputs": [
+        "{options.outputPath}",
+        "{workspaceRoot}/dist/map-ai/.nitro",
+        "{workspaceRoot}/dist/map-ai/ssr",
+        "{workspaceRoot}/dist/map-ai/analog"
+      ],
+      "options": {
+        "main": "map-ai/src/main.ts",
+        "configFile": "map-ai/vite.config.ts",
+        "outputPath": "dist/map-ai/client",
+        "tsConfig": "map-ai/tsconfig.app.json"
+      }
+    },
+    "serve": {
+      "executor": "@analogjs/platform:vite-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "map-ai:build",
+        "port": 4200
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "map-ai:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "map-ai:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@analogjs/vitest-angular:test",
+      "outputs": [
+        "{projectRoot}/coverage"
+      ]
+    }
+  },
+  "tags": [],
+  "sourceRoot": "./map-ai/src"
+}
